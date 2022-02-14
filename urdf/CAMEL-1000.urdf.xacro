@@ -26,7 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <xacro:include filename="$(find zed_wrapper)/urdf/include/materials.urdf.xacro" />
  
   <!--Arguments-->
-  <xacro:arg name="robot_model"  default='neo'/>
+  <xacro:arg name="robot_model"  default='Camel-1000'/>
   <xacro:arg name="base_frame"   default="base_link" />
   
   <!--Properties-->
@@ -41,7 +41,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <link name="${model}$(arg base_frame)">
     <visual>
       <geometry>
-        <mesh filename="package://neo_urdf/meshes/CAMEL-1000.stl" scale="0.001 0.001 0.001"/> />
+        <mesh filename="package://camel_urdf/meshes/CAMEL-1000.stl" scale="0.001 0.001 0.001"/> />
       </geometry>
       <origin rpy="0 0 ${-M_PI/2}" xyz="0 0 0"/>
     </visual>
@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://neo_urdf/meshes/zed2.stl" />
+          <mesh filename="package://camel_urdf/meshes/zed2.stl" />
         </geometry>
         <material name="black"/>
       </visual>
