@@ -2,7 +2,7 @@
 
   <arg name="robot_model" default="$(optenv ROBOT_MODEL no)" doc="model type [no, CAMEL-1000]"/> <!--type "no" for publish without tf prefix or name of tf prefix-->
   <arg name="base_frame"  default="base_link" />
-  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+  <arg name="rvizconfig" default="$(find camel_urdf)/rviz/urdf.rviz" />
   <group ns="robot_1">
 
     <param name="robot_description" command="$(find xacro)/xacro '$(find camel_urdf)/urdf/CAMEL-1000.urdf.xacro' 
