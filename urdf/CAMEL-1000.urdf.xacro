@@ -23,8 +23,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   <!--Includes-->
   <xacro:include filename="$(find camel_urdf)/urdf/common_properties.xacro"/>
-  <xacro:include filename="$(find zed_wrapper)/urdf/include/materials.urdf.xacro" />
- 
+  
+  
+
   <!--Arguments-->
   <xacro:arg name="robot_model"  default='Camel-1000'/>
   <xacro:arg name="base_frame"   default="base_link" />
@@ -32,6 +33,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <!--Properties-->
   <xacro:property name="M_PI"     value="3.1415926535897931" />
   <xacro:property name="model"    value="$(arg robot_model)/" />
+  <xacro:property name="baseline"     value="0.12" />
+  <xacro:property name="optical_offset_x" value="-0.01" />
   
   <xacro:if value="${model == 'no/'}">
         <xacro:property name="model" value="" />
@@ -45,8 +48,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </geometry>
       <origin rpy="0 0 ${-M_PI/2}" xyz="0 0 0"/>
     </visual>
-  </link>
     
+  </link>
+  
+  <!--Laser-->
+  <joint name="$(arg base_frame)_laser_joint" type="fixed">
+      <parent link="${model}$(arg base_frame)"/>
+      <child link="${model}laser"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="${model}laser">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
   <!--Base_Footprint-->
   <joint name="$(arg base_frame)_base_footprint_joint" type="fixed">
       <parent link="${model}$(arg base_frame)"/>
@@ -80,23 +95,48 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />   
   </link>
   
-  <!--Zed Camera-->
+  <!--Zed Camera Center-->
   <joint name="$(arg base_frame)_zed2_camera_joint" type="fixed">
       <parent link="${model}$(arg base_frame)"/>
-      <child link="${model}zed2_camera"/>
+      <child link="${model}zed2_camera_center"/>
       <origin xyz="0.75 0 0" rpy="0 0 0"/>
   </joint>
 
-  <link name="${model}zed2_camera">
+  <link name="${model}zed2_camera_center">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <mesh filename="package://camel_urdf/meshes/zed2.stl" />
         </geometry>
-        <material name="black"/>
+        <material name="zed_mat"/>
       </visual>
   </link>
+  <!--Zed2 Left-->
+  <joint name="${model}zed2_left_camera_joint" type="fixed">
+      <parent link="${model}zed2_camera_center"/>
+      <child link="${model}zed2_left_camera_frame"/>
+      <origin xyz="0 ${baseline/2} 0" rpy="0 0 0" />
+  </joint>
 
+  <link name="${model}zed2_left_camera_frame" />
+
+  <!--Zed2 Left Optical-->
+  <joint name="${model}zed2_left_camera_optical_joint" type="fixed">
+      <origin xyz="${optical_offset_x} 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}"/>
+      <parent link="${model}zed2_left_camera_frame"/>
+      <child link="${model}zed2_left_camera_optical_frame"/>
+  </joint>
+
+  <link name="${model}zed2_left_camera_optical_frame"/>
+  <!--Zed2 Right-->
+  <joint name="${model}zed2_right_camera_joint" type="fixed">
+      <parent link="${model}zed2_camera_center"/>
+      <child link="${model}zed2_right_camera_frame"/>
+      <origin xyz="0 -${baseline/2} 0" rpy="0 0 0" />
+  </joint>
+  
+  <link name="${model}zed2_right_camera_frame" />  
+ 
   <!--Front Lidar-->
   <joint name="$(arg base_frame)_front_lidar_joint" type="fixed">
       <parent link="${model}$(arg base_frame)"/>
