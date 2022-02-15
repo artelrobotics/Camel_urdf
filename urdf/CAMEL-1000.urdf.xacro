@@ -48,7 +48,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </geometry>
       <origin rpy="0 0 ${-M_PI/2}" xyz="0 0 0"/>
     </visual>
-    
+
   </link>
   
   <!--Laser-->
@@ -95,14 +95,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />   
   </link>
   
-  <!--Zed Camera Center-->
-  <joint name="$(arg base_frame)_zed2_camera_joint" type="fixed">
+  <!--Zed Front Camera Center-->
+  <joint name="$(arg base_frame)_zed2_front_camera_joint" type="fixed">
       <parent link="${model}$(arg base_frame)"/>
-      <child link="${model}zed2_camera_center"/>
+      <child link="${model}zed2_front_camera_center"/>
       <origin xyz="0.75 0 0" rpy="0 0 0"/>
   </joint>
 
-  <link name="${model}zed2_camera_center">
+  <link name="${model}zed2_front_camera_center">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -111,31 +111,72 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <material name="zed_mat"/>
       </visual>
   </link>
-  <!--Zed2 Left-->
-  <joint name="${model}zed2_left_camera_joint" type="fixed">
-      <parent link="${model}zed2_camera_center"/>
-      <child link="${model}zed2_left_camera_frame"/>
+  <!--Zed2 Front Left-->
+  <joint name="${model}zed2_front_left_camera_joint" type="fixed">
+      <parent link="${model}zed2_front_camera_center"/>
+      <child link="${model}zed2_front_left_camera_frame"/>
       <origin xyz="0 ${baseline/2} 0" rpy="0 0 0" />
   </joint>
 
-  <link name="${model}zed2_left_camera_frame" />
+  <link name="${model}zed2_front_left_camera_frame" />
 
-  <!--Zed2 Left Optical-->
-  <joint name="${model}zed2_left_camera_optical_joint" type="fixed">
+  <!--Zed2 Front Left Optical-->
+  <joint name="${model}zed2_front_left_camera_optical_joint" type="fixed">
       <origin xyz="${optical_offset_x} 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}"/>
-      <parent link="${model}zed2_left_camera_frame"/>
-      <child link="${model}zed2_left_camera_optical_frame"/>
+      <parent link="${model}zed2_front_left_camera_frame"/>
+      <child link="${model}zed2_front_left_camera_optical_frame"/>
   </joint>
 
-  <link name="${model}zed2_left_camera_optical_frame"/>
-  <!--Zed2 Right-->
-  <joint name="${model}zed2_right_camera_joint" type="fixed">
-      <parent link="${model}zed2_camera_center"/>
-      <child link="${model}zed2_right_camera_frame"/>
+  <link name="${model}zed2_front_left_camera_optical_frame"/>
+  <!--Zed2 Front Right-->
+  <joint name="${model}zed2_front_right_camera_joint" type="fixed">
+      <parent link="${model}zed2_front_camera_center"/>
+      <child link="${model}zed2_front_right_camera_frame"/>
       <origin xyz="0 -${baseline/2} 0" rpy="0 0 0" />
   </joint>
   
-  <link name="${model}zed2_right_camera_frame" />  
+  <link name="${model}zed2_front_right_camera_frame" />  
+  <!--Zed Back Camera Center-->
+  <joint name="$(arg base_frame)_zed2_back_camera_joint" type="fixed">
+      <parent link="${model}$(arg base_frame)"/>
+      <child link="${model}zed2_back_camera_center"/>
+      <origin xyz="-0.75 0 0" rpy="0 0 ${M_PI}"/>
+  </joint>
+
+  <link name="${model}zed2_back_camera_center">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://camel_urdf/meshes/zed2.stl" />
+        </geometry>
+        <material name="zed_mat"/>
+      </visual>
+  </link>
+  <!--Zed2 Back Left-->
+  <joint name="${model}zed2_back_left_camera_joint" type="fixed">
+      <parent link="${model}zed2_back_camera_center"/>
+      <child link="${model}zed2_back_left_camera_frame"/>
+      <origin xyz="0 ${baseline/2} 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="${model}zed2_back_left_camera_frame" />
+
+  <!--Zed2 Back Left Optical-->
+  <joint name="${model}zed2_back_left_camera_optical_joint" type="fixed">
+      <origin xyz="${optical_offset_x} 0 0" rpy="-${M_PI/2} 0.0 -${M_PI/2}"/>
+      <parent link="${model}zed2_back_left_camera_frame"/>
+      <child link="${model}zed2_back_left_camera_optical_frame"/>
+  </joint>
+
+  <link name="${model}zed2_back_left_camera_optical_frame"/>
+  <!--Zed2 Back Right-->
+  <joint name="${model}zed2_back_right_camera_joint" type="fixed">
+      <parent link="${model}zed2_back_camera_center"/>
+      <child link="${model}zed2_back_right_camera_frame"/>
+      <origin xyz="0 -${baseline/2} 0" rpy="0 0 0" />
+  </joint>
+  
+  <link name="${model}zed2_back_right_camera_frame" />  
  
   <!--Front Lidar-->
   <joint name="$(arg base_frame)_front_lidar_joint" type="fixed">
