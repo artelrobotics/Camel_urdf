@@ -6,11 +6,6 @@
   <material name="black">
       <color rgba="0.0 0.0 0.0 1.0"/>
   </material>
-  
-  <material name="zed_mat">
-        <color rgba="0.8 0.8 0.8 0.8"/>
-  </material>
-
   <material name="dark">
     <color rgba="0.3 0.3 0.3 1.0"/>
   </material>
