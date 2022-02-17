@@ -95,13 +95,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </link>
   
   <!--Zed Front Camera Center-->
-  <xacro:zed_camera name="zed_front" model="zed2" parent="$(arg base_frame)">
+  <xacro:zed_camera name="${model}zed_front" model="zed2" parent="${model}$(arg base_frame)">
     <origin xyz="0.75 0 0" rpy="0 0 0" />
   </xacro:zed_camera>
 
 
   <!--Zed Back Camera Center-->
-  <xacro:zed_camera name="zed_back" model="zed2" parent="$(arg base_frame)">
+  <xacro:zed_camera name="${model}zed_back" model="zed2" parent="${model}$(arg base_frame)">
     <origin xyz="-0.75 0 0" rpy="0 0 ${M_PI}" />
   </xacro:zed_camera>
 
