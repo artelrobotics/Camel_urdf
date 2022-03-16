@@ -87,7 +87,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <parent link="${name}_left_camera_frame"/>
       <child link="${name}_left_camera_optical_frame"/>
     </joint>
-
+    
+    <!-- Imu Zed-->
+    <!-- <joint name="zed_imu_link" type="fixed">
+      <parent link="${name}_left_camera_optical_frame"/>
+      <child link="zed_front_imu_link"/>
+      <origin xyz="0 ${baseline/2} 0" rpy="0 0 0" />
+    </joint> -->
 
     <!-- Right Camera -->
     <link name="${name}_right_camera_frame" />
