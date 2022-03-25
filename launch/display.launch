@@ -6,11 +6,11 @@
   <group ns="$(arg robot_model)">
 
     <param name="robot_description" command="$(find xacro)/xacro '$(find camel_urdf)/urdf/CAMEL-1000.urdf.xacro' 
-                                             robot_model:=$(arg robot_model)
+                                             robot_model:=camel
                                              base_frame:=$(arg base_frame)"/>
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" required="true">
 
-        <remap from="robot_description" to="robot_description" />
+        <!-- <remap from="robot_description" to="robot_description" /> -->
     <param name="publish_frequency" type="double" value="50.0" />
     
     </node>
