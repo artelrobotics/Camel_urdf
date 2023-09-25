@@ -5,7 +5,7 @@
   <arg name="rvizconfig" default="$(find camel_urdf)/rviz/urdf.rviz" />
   <group ns="$(arg robot_model)">
 
-    <param name="robot_description" command="$(find xacro)/xacro '$(find camel_urdf)/urdf/CAMEL-1000.urdf.xacro' 
+    <param name="robot_description" command="$(find xacro)/xacro '$(find camel_urdf)/urdf/CAMEL-500.urdf.xacro' 
                                              robot_model:=camel
                                              base_frame:=$(arg base_frame)"/>
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" required="true">
